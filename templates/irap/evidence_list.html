@@ -1,0 +1,14 @@
+<h1>Evidence</h1>
+
+<ul>
+  {% for evidence in evidence_items %}
+    <li>
+      <a href="{% url 'irap:evidence_detail' evidence.pk %}">
+        {{ evidence.name }}
+      </a>
+      ({{ evidence.type }})
+    </li>
+  {% endfor %}
+</ul>
+
+<p><a href="{% url 'irap:control_list' %}">View Controls</a></p>

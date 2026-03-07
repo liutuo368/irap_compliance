@@ -1,0 +1,419 @@
+[
+  {
+    "model": "irap.controlset",
+    "pk": 1,
+    "fields": {
+      "name": "IRAP PoC Control Subset",
+      "version": "1.0",
+      "description": "Week 6 seed data: representative subset of IRAP controls for prototype evaluation."
+    }
+  },
+
+  {
+    "model": "irap.boundary",
+    "pk": 1,
+    "fields": {
+      "name": "Production Environment",
+      "description": "Primary system boundary for production workloads."
+    }
+  },
+  {
+    "model": "irap.boundary",
+    "pk": 2,
+    "fields": {
+      "name": "CI/CD Pipeline",
+      "description": "Build and deployment pipeline boundary (GitHub Actions / CI runners / artifact storage)."
+    }
+  },
+
+  {
+    "model": "irap.evidence",
+    "pk": 1,
+    "fields": {
+      "name": "Access Control Policy",
+      "type": "policy",
+      "description": "Organization policy describing access control objectives and requirements."
+    }
+  },
+  {
+    "model": "irap.evidence",
+    "pk": 2,
+    "fields": {
+      "name": "Joiner-Mover-Leaver Procedure",
+      "type": "procedure",
+      "description": "Procedure for onboarding, role changes and offboarding (account lifecycle)."
+    }
+  },
+  {
+    "model": "irap.evidence",
+    "pk": 3,
+    "fields": {
+      "name": "Cloud Architecture Diagram",
+      "type": "diagram",
+      "description": "High-level architecture diagram showing core components and trust boundaries."
+    }
+  },
+  {
+    "model": "irap.evidence",
+    "pk": 4,
+    "fields": {
+      "name": "Centralized Logging Configuration",
+      "type": "log",
+      "description": "Logging/monitoring configuration demonstrating collection and retention."
+    }
+  },
+  {
+    "model": "irap.evidence",
+    "pk": 5,
+    "fields": {
+      "name": "Change Ticket Sample (Deploy #42)",
+      "type": "ticket",
+      "description": "Example change record demonstrating review/approval and deployment traceability."
+    }
+  },
+  {
+    "model": "irap.evidence",
+    "pk": 6,
+    "fields": {
+      "name": "Security Attestation Notes",
+      "type": "attestation",
+      "description": "Interview/attestation notes confirming operational practices."
+    }
+  },
+
+  {
+    "model": "irap.evidencelink",
+    "pk": 1,
+    "fields": {
+      "evidence": 1,
+      "url_or_reference": "https://confluence.example/policies/access-control",
+      "description": "Policy page in Confluence (placeholder)."
+    }
+  },
+  {
+    "model": "irap.evidencelink",
+    "pk": 2,
+    "fields": {
+      "evidence": 2,
+      "url_or_reference": "https://confluence.example/procedures/jml",
+      "description": "JML procedure doc (placeholder)."
+    }
+  },
+  {
+    "model": "irap.evidencelink",
+    "pk": 3,
+    "fields": {
+      "evidence": 3,
+      "url_or_reference": "s3://example-bucket/diagrams/architecture.png",
+      "description": "Architecture diagram stored in object storage (placeholder)."
+    }
+  },
+  {
+    "model": "irap.evidencelink",
+    "pk": 4,
+    "fields": {
+      "evidence": 4,
+      "url_or_reference": "https://grafana.example/d/central-logging",
+      "description": "Dashboard showing logging signals (placeholder)."
+    }
+  },
+  {
+    "model": "irap.evidencelink",
+    "pk": 5,
+    "fields": {
+      "evidence": 5,
+      "url_or_reference": "https://jira.example/browse/DEPLOY-42",
+      "description": "Example change ticket (placeholder)."
+    }
+  },
+  {
+    "model": "irap.evidencelink",
+    "pk": 6,
+    "fields": {
+      "evidence": 6,
+      "url_or_reference": "local://notes/security-attestation-week6.txt",
+      "description": "Local notes reference for PoC demo (placeholder)."
+    }
+  },
+
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 1,
+    "fields": { "evidence": 1, "boundary": 1, "notes": "Applies to prod IAM and RBAC policies." }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 2,
+    "fields": { "evidence": 2, "boundary": 1, "notes": "User lifecycle operations scoped to production accounts." }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 3,
+    "fields": { "evidence": 3, "boundary": 1, "notes": "Diagram covers production boundary and dependencies." }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 4,
+    "fields": { "evidence": 4, "boundary": 1, "notes": "Central logging for prod services and audit logs." }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 5,
+    "fields": { "evidence": 5, "boundary": 2, "notes": "Change management evidence scoped to CI/CD." }
+  },
+
+  {
+    "model": "irap.control",
+    "pk": 1,
+    "fields": {
+      "control_set": 1,
+      "control_id": "AC-1",
+      "name": "Access Control Policy and Procedures",
+      "description": "Establish and maintain access control policy and procedures.",
+      "version": "1.0"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 2,
+    "fields": {
+      "control_set": 1,
+      "control_id": "AC-2",
+      "name": "Account Management",
+      "description": "Manage information system accounts including creation, modification, disabling and removal.",
+      "version": "1.0"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 3,
+    "fields": {
+      "control_set": 1,
+      "control_id": "AC-3",
+      "name": "Access Enforcement",
+      "description": "Enforce approved authorizations for logical access.",
+      "version": "1.0"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 4,
+    "fields": {
+      "control_set": 1,
+      "control_id": "AU-2",
+      "name": "Event Logging",
+      "description": "Determine and log auditable events for accountability and monitoring.",
+      "version": "1.0"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 5,
+    "fields": {
+      "control_set": 1,
+      "control_id": "AU-6",
+      "name": "Audit Review and Analysis",
+      "description": "Review and analyze audit logs for indications of inappropriate or unusual activity.",
+      "version": "1.0"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 6,
+    "fields": {
+      "control_set": 1,
+      "control_id": "CM-2",
+      "name": "Baseline Configuration",
+      "description": "Develop, document, and maintain baseline configurations for the system.",
+      "version": "1.0"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 7,
+    "fields": {
+      "control_set": 1,
+      "control_id": "CM-3",
+      "name": "Configuration Change Control",
+      "description": "Manage configuration changes through approval and documentation.",
+      "version": "1.0"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 8,
+    "fields": {
+      "control_set": 1,
+      "control_id": "IA-2",
+      "name": "User Identification and Authentication",
+      "description": "Uniquely identify and authenticate users.",
+      "version": "1.0"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 9,
+    "fields": {
+      "control_set": 1,
+      "control_id": "PL-2",
+      "name": "System Security Plan",
+      "description": "Develop and maintain a system security plan covering scope and controls.",
+      "version": "1.0"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 10,
+    "fields": {
+      "control_set": 1,
+      "control_id": "RA-5",
+      "name": "Vulnerability Monitoring and Scanning",
+      "description": "Monitor and scan for vulnerabilities and remediate identified issues.",
+      "version": "1.0"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 11,
+    "fields": {
+      "control_set": 1,
+      "control_id": "SC-7",
+      "name": "Boundary Protection",
+      "description": "Monitor, control and protect communications at external boundaries.",
+      "version": "1.0"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 12,
+    "fields": {
+      "control_set": 1,
+      "control_id": "SI-4",
+      "name": "System Monitoring",
+      "description": "Monitor the system for attacks and indicators of compromise.",
+      "version": "1.0"
+    }
+  },
+
+  {
+    "model": "irap.evidenceusage",
+    "pk": 1,
+    "fields": { "control": 1, "evidence": 1, "notes": "Policy evidence reused across multiple controls." }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 2,
+    "fields": { "control": 2, "evidence": 2, "notes": "JML procedure demonstrates account lifecycle controls." }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 3,
+    "fields": { "control": 3, "evidence": 1, "notes": "Access enforcement aligned with policy statement." }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 4,
+    "fields": { "control": 4, "evidence": 4, "notes": "Logging configuration indicates auditable event coverage." }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 5,
+    "fields": { "control": 5, "evidence": 4, "notes": "Dashboard and alerts support review and analysis." }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 6,
+    "fields": { "control": 6, "evidence": 3, "notes": "Architecture diagram references baseline components." }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 7,
+    "fields": { "control": 7, "evidence": 5, "notes": "Change ticket demonstrates review/approval workflow." }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 8,
+    "fields": { "control": 8, "evidence": 1, "notes": "Authentication requirements referenced by policy." }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 9,
+    "fields": { "control": 9, "evidence": 3, "notes": "SSP scope supported by boundary diagram (PoC)." }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 10,
+    "fields": { "control": 10, "evidence": 6, "notes": "Attestation notes confirm scanning cadence (PoC)." }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 11,
+    "fields": { "control": 11, "evidence": 3, "notes": "Boundary protection supported by architecture view." }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 12,
+    "fields": { "control": 12, "evidence": 4, "notes": "Monitoring evidence derived from centralized logging." }
+  },
+
+  {
+    "model": "irap.controlassessment",
+    "pk": 1,
+    "fields": { "control": 1, "status": "partial", "notes": "Policy exists; needs formal review cycle evidence.", "assessment_date": "2026-02-20" }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 2,
+    "fields": { "control": 2, "status": "partial", "notes": "Procedure documented; automation evidence pending.", "assessment_date": "2026-02-20" }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 3,
+    "fields": { "control": 3, "status": "not_assessed", "notes": "To be validated during demo scenario.", "assessment_date": "2026-02-20" }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 4,
+    "fields": { "control": 4, "status": "pass", "notes": "Logging configuration and dashboard exist (PoC).", "assessment_date": "2026-02-20" }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 5,
+    "fields": { "control": 5, "status": "partial", "notes": "Review process exists; alert triage evidence limited.", "assessment_date": "2026-02-20" }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 6,
+    "fields": { "control": 6, "status": "not_assessed", "notes": "Baseline configuration evidence to be collected.", "assessment_date": "2026-02-20" }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 7,
+    "fields": { "control": 7, "status": "pass", "notes": "Change ticket sample shows approvals and traceability.", "assessment_date": "2026-02-20" }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 8,
+    "fields": { "control": 8, "status": "partial", "notes": "Auth supported; MFA coverage needs confirmation.", "assessment_date": "2026-02-20" }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 9,
+    "fields": { "control": 9, "status": "not_assessed", "notes": "System security plan draft pending.", "assessment_date": "2026-02-20" }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 10,
+    "fields": { "control": 10, "status": "partial", "notes": "Scanning occurs; reporting evidence limited (PoC).", "assessment_date": "2026-02-20" }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 11,
+    "fields": { "control": 11, "status": "not_assessed", "notes": "Boundary controls to be validated with diagram and config.", "assessment_date": "2026-02-20" }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 12,
+    "fields": { "control": 12, "status": "partial", "notes": "Monitoring exists; detection tuning to be demonstrated.", "assessment_date": "2026-02-20" }
+  }
+]

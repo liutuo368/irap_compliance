@@ -1,0 +1,21 @@
+<h1>Traceability Report</h1>
+
+<table border="1" cellpadding="6">
+  <tr>
+    <th>Evidence</th>
+    <th>Type</th>
+    <th>Reuse Count</th>
+    <th>Links</th>
+    <th>Boundary Count</th>
+  </tr>
+
+  {% for e in evidence_items %}
+    <tr>
+      <td><a href="{% url 'irap:evidence_detail' e.pk %}">{{ e.name }}</a></td>
+      <td>{{ e.type }}</td>
+      <td>{{ e.reuse_count }}</td>
+      <td>{{ e.link_count }}</td>
+      <td>{{ e.boundary_count }}</td>
+    </tr>
+  {% endfor %}
+</table>

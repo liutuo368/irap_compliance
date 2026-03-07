@@ -1,0 +1,51 @@
+<h1>{{ evidence.name }}</h1>
+
+<p><strong>Type:</strong> {{ evidence.type }}</p>
+<p><strong>Description:</strong> {{ evidence.description }}</p>
+<p><strong>Reuse count:</strong> {{ reuse_count }}</p>
+
+<h2>References / Links</h2>
+{% if evidence.links.all %}
+  <ul>
+    {% for link in evidence.links.all %}
+      <li>{{ link.url_or_reference }}{% if link.description %} - {{ link.description }}{% endif %}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No links recorded.</p>
+{% endif %}
+
+<h2>Used By Controls</h2>
+{% if evidence.evidence_usages.all %}
+  <ul>
+    {% for usage in evidence.evidence_usages.all %}
+      <li>
+        <a href="{% url 'irap:control_detail' usage.control.pk %}">
+          {{ usage.control.control_id }} - {{ usage.control.name }}
+        </a>
+        <br>
+        <strong>Usage notes:</strong> {{ usage.notes|default:"-" }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>This evidence is not linked to any controls yet.</p>
+{% endif %}
+
+<h2>Boundary Scope</h2>
+{% if evidence.boundary_associations.all %}
+  <ul>
+    {% for assoc in evidence.boundary_associations.all %}
+      <li>{{ assoc.boundary.name }}{% if assoc.notes %} - {{ assoc.notes }}{% endif %}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No boundary scope assigned.</p>
+{% endif %}
+
+<h3>Add Boundary Scope</h3>
+<form method="post" action="{% url 'irap:add_boundary_to_evidence' evidence.pk %}">
+  {% csrf_token %}
+  {{ boundary_form.as_p }}
+  <button type="submit">Add Boundary</button>
+</form>

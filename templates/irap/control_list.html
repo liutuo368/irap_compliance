@@ -1,0 +1,14 @@
+<h1>Controls</h1>
+
+<ul>
+  {% for control in controls %}
+    <li>
+      <a href="{% url 'irap:control_detail' control.pk %}">
+        {{ control.control_id }} - {{ control.name }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+<p><a href="{% url 'irap:evidence_list' %}">View Evidence</a></p>
+<p><a href="{% url 'irap:traceability_report' %}">View Traceability Report</a></p>

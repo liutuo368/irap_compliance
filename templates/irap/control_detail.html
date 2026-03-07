@@ -1,0 +1,55 @@
+<h1>{{ control.control_id }} - {{ control.name }}</h1>
+
+<p><strong>Control Set:</strong> {{ control.control_set.name }} {{ control.control_set.version }}</p>
+<p><strong>Description:</strong> {{ control.description }}</p>
+
+{% if latest_assessment %}
+  <h2>Latest Assessment</h2>
+  <p><strong>Status:</strong> {{ latest_assessment.get_status_display }}</p>
+  <p><strong>Date:</strong> {{ latest_assessment.assessment_date }}</p>
+  <p><strong>Notes:</strong> {{ latest_assessment.notes }}</p>
+{% endif %}
+
+<h2>Linked Evidence</h2>
+{% if control.evidence_usages.all %}
+  <ul>
+    {% for usage in control.evidence_usages.all %}
+      <li>
+        <a href="{% url 'irap:evidence_detail' usage.evidence.pk %}">
+          {{ usage.evidence.name }}
+        </a>
+        ({{ usage.evidence.type }})
+        <br>
+        <strong>Usage notes:</strong> {{ usage.notes|default:"-" }}
+
+        {% if usage.evidence.links.all %}
+          <ul>
+            {% for link in usage.evidence.links.all %}
+              <li>{{ link.url_or_reference }}{% if link.description %} - {{ link.description }}{% endif %}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No evidence linked yet.</p>
+{% endif %}
+
+<hr>
+
+<h2>Link Existing Evidence</h2>
+<form method="post" action="{% url 'irap:link_evidence' control.pk %}">
+  {% csrf_token %}
+  {{ link_form.as_p }}
+  <button type="submit">Link Evidence</button>
+</form>
+
+<hr>
+
+<h2>Create New Evidence and Link</h2>
+<form method="post" action="{% url 'irap:create_and_link_evidence' control.pk %}">
+  {% csrf_token %}
+  {{ create_form.as_p }}
+  <button type="submit">Create and Link</button>
+</form>
