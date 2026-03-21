@@ -11,6 +11,7 @@ urlpatterns = [
 
     path("evidence/", views.evidence_list, name="evidence_list"),
     path("evidence/<int:pk>/", views.evidence_detail, name="evidence_detail"),
+    path("evidence/<int:pk>/edit/", views.evidence_edit, name="evidence_edit"),
     path("evidence/<int:evidence_id>/add-boundary/", views.add_boundary_to_evidence, name="add_boundary_to_evidence"),
     path("reports/traceability/", views.traceability_report, name="traceability_report"),
 ]

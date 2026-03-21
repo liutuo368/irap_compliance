@@ -1,51 +1,114 @@
-<h1>{{ evidence.name }}</h1>
+{% extends 'base.html' %}
 
-<p><strong>Type:</strong> {{ evidence.type }}</p>
-<p><strong>Description:</strong> {{ evidence.description }}</p>
-<p><strong>Reuse count:</strong> {{ reuse_count }}</p>
+{% block title %}{{ evidence.name }}{% endblock %}
 
-<h2>References / Links</h2>
-{% if evidence.links.all %}
-  <ul>
-    {% for link in evidence.links.all %}
-      <li>{{ link.url_or_reference }}{% if link.description %} - {{ link.description }}{% endif %}</li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>No links recorded.</p>
-{% endif %}
+{% block content %}
+  <div class="mb-3">
+    <a class="btn btn-outline-light btn-sm" href="{% url 'irap:evidence_list' %}">&larr; Back to Evidence</a>
+  </div>
 
-<h2>Used By Controls</h2>
-{% if evidence.evidence_usages.all %}
-  <ul>
-    {% for usage in evidence.evidence_usages.all %}
-      <li>
-        <a href="{% url 'irap:control_detail' usage.control.pk %}">
-          {{ usage.control.control_id }} - {{ usage.control.name }}
-        </a>
-        <br>
-        <strong>Usage notes:</strong> {{ usage.notes|default:"-" }}
-      </li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>This evidence is not linked to any controls yet.</p>
-{% endif %}
+  <div class="card bg-dark border-secondary mb-3">
+    <div class="card-body">
+      <div class="d-flex align-items-start justify-content-between gap-3 flex-wrap">
+        <div>
+          <h1 class="h3 mb-1">{{ evidence.name }}</h1>
+          <div class="text-muted small">Evidence Artifact</div>
+        </div>
 
-<h2>Boundary Scope</h2>
-{% if evidence.boundary_associations.all %}
-  <ul>
-    {% for assoc in evidence.boundary_associations.all %}
-      <li>{{ assoc.boundary.name }}{% if assoc.notes %} - {{ assoc.notes }}{% endif %}</li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>No boundary scope assigned.</p>
-{% endif %}
+        <div class="d-flex gap-2 flex-wrap justify-content-end">
+          <span class="badge text-bg-primary">{{ evidence.type }}</span>
+          <span class="badge text-bg-secondary">Reuse count: <strong>{{ reuse_count }}</strong></span>
+          <a class="btn btn-outline-light btn-sm" href="{% url 'irap:evidence_edit' evidence.pk %}">Edit</a>
+        </div>
+      </div>
 
-<h3>Add Boundary Scope</h3>
-<form method="post" action="{% url 'irap:add_boundary_to_evidence' evidence.pk %}">
-  {% csrf_token %}
-  {{ boundary_form.as_p }}
-  <button type="submit">Add Boundary</button>
-</form>
+      <div class="mt-3">
+        <div class="text-muted small mb-1">Description</div>
+        <div>{{ evidence.description|default:"-" }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card bg-dark border-secondary mb-3">
+    <div class="card-body">
+      <h2 class="h5 text-muted mb-3">References / Links</h2>
+
+      {% if evidence.links.all %}
+        <ul class="mb-0">
+          {% for link in evidence.links.all %}
+            <li>
+              <strong>{{ link.url_or_reference }}</strong>
+              {% if link.description %} - {{ link.description }}{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="alert alert-secondary mb-0">No links recorded.</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="card bg-dark border-secondary mb-3">
+    <div class="card-body">
+      <h2 class="h5 text-muted mb-3">Task 2: Evidence Update Propagation</h2>
+
+      {% if evidence.evidence_usages.all %}
+        <div class="row g-3">
+          {% for usage in evidence.evidence_usages.all %}
+            <div class="col-md-6">
+              <div class="card bg-transparent border-secondary h-100">
+                <div class="card-body">
+                  <h3 class="h6 mb-2">
+                    <a class="link-info text-decoration-none" href="{% url 'irap:control_detail' usage.control.pk %}">
+                      {{ usage.control.control_id }} - {{ usage.control.name }}
+                    </a>
+                  </h3>
+                  <div class="text-muted small">Usage notes</div>
+                  <div>{{ usage.notes|default:"-" }}</div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="alert alert-secondary mb-0">This evidence is not linked to any controls yet.</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="card bg-dark border-secondary mb-3">
+        <div class="card-body">
+          <h2 class="h5 text-muted mb-3">Boundary Scope</h2>
+
+          {% if evidence.boundary_associations.all %}
+            <div class="d-flex flex-wrap gap-2">
+              {% for assoc in evidence.boundary_associations.all %}
+                <span class="badge text-bg-secondary">
+                  {{ assoc.boundary.name }}
+                  {% if assoc.notes %}<span class="text-white-50 ms-1">- {{ assoc.notes }}</span>{% endif %}
+                </span>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="alert alert-secondary mb-0">No boundary scope assigned.</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card bg-dark border-secondary mb-3">
+        <div class="card-body">
+          <h2 class="h5 text-muted mb-3">Add Boundary Scope</h2>
+          <form method="post" action="{% url 'irap:add_boundary_to_evidence' evidence.pk %}">
+            {% csrf_token %}
+            {{ boundary_form.as_p }}
+            <button class="btn btn-primary mt-2" type="submit">Add Boundary</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

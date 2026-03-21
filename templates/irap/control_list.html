@@ -1,14 +1,43 @@
-<h1>Controls</h1>
+{% extends 'base.html' %}
 
-<ul>
-  {% for control in controls %}
-    <li>
-      <a href="{% url 'irap:control_detail' control.pk %}">
-        {{ control.control_id }} - {{ control.name }}
-      </a>
-    </li>
-  {% endfor %}
-</ul>
+{% block title %}Controls{% endblock %}
 
-<p><a href="{% url 'irap:evidence_list' %}">View Evidence</a></p>
-<p><a href="{% url 'irap:traceability_report' %}">View Traceability Report</a></p>
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h1 class="h3 mb-0">Controls</h1>
+    <a class="btn btn-outline-light btn-sm" href="{% url 'irap:traceability_report' %}">Go to Traceability &rarr;</a>
+  </div>
+
+  <div class="card bg-dark border-secondary mb-3">
+    <div class="card-body">
+    {% if controls %}
+      <div class="table-responsive">
+        <table class="table table-dark table-striped table-hover align-middle mb-0" aria-label="Controls table">
+        <thead>
+          <tr>
+            <th>Control</th>
+            <th>Control Set</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for control in controls %}
+            <tr>
+              <td>
+                <a class="link-info text-decoration-none" href="{% url 'irap:control_detail' control.pk %}">
+                  <strong>{{ control.control_id }}</strong> - {{ control.name }}
+                </a>
+              </td>
+              <td class="text-muted">
+                {{ control.control_set.name }}{% if control.control_set.version %} ({{ control.control_set.version }}){% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="alert alert-secondary mb-0">No controls available yet.</div>
+    {% endif %}
+    </div>
+  </div>
+{% endblock %}

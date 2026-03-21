@@ -1,14 +1,41 @@
-<h1>Evidence</h1>
+{% extends 'base.html' %}
 
-<ul>
-  {% for evidence in evidence_items %}
-    <li>
-      <a href="{% url 'irap:evidence_detail' evidence.pk %}">
-        {{ evidence.name }}
-      </a>
-      ({{ evidence.type }})
-    </li>
-  {% endfor %}
-</ul>
+{% block title %}Evidence{% endblock %}
 
-<p><a href="{% url 'irap:control_list' %}">View Controls</a></p>
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h1 class="h3 mb-0">Evidence</h1>
+    <a class="btn btn-outline-light btn-sm" href="{% url 'irap:control_list' %}">&larr; Back to Controls</a>
+  </div>
+
+  <div class="card bg-dark border-secondary mb-3">
+    <div class="card-body">
+    {% if evidence_items %}
+      <div class="table-responsive">
+        <table class="table table-dark table-striped table-hover align-middle mb-0" aria-label="Evidence table">
+          <thead>
+            <tr>
+              <th>Evidence Artifact</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for evidence in evidence_items %}
+              <tr>
+                <td>
+                  <a class="link-info text-decoration-none" href="{% url 'irap:evidence_detail' evidence.pk %}">
+                    <strong>{{ evidence.name }}</strong>
+                  </a>
+                </td>
+                <td class="text-muted">{{ evidence.type }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="alert alert-secondary mb-0">No evidence artifacts available yet.</div>
+    {% endif %}
+    </div>
+  </div>
+{% endblock %}

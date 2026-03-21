@@ -1,55 +1,147 @@
-<h1>{{ control.control_id }} - {{ control.name }}</h1>
+{% extends 'base.html' %}
 
-<p><strong>Control Set:</strong> {{ control.control_set.name }} {{ control.control_set.version }}</p>
-<p><strong>Description:</strong> {{ control.description }}</p>
+{% block title %}{{ control.control_id }}{% endblock %}
 
-{% if latest_assessment %}
-  <h2>Latest Assessment</h2>
-  <p><strong>Status:</strong> {{ latest_assessment.get_status_display }}</p>
-  <p><strong>Date:</strong> {{ latest_assessment.assessment_date }}</p>
-  <p><strong>Notes:</strong> {{ latest_assessment.notes }}</p>
-{% endif %}
+{% block content %}
+  <div class="mb-3">
+    <a class="btn btn-outline-light btn-sm" href="{% url 'irap:control_list' %}">&larr; Back to Controls</a>
+  </div>
 
-<h2>Linked Evidence</h2>
-{% if control.evidence_usages.all %}
-  <ul>
-    {% for usage in control.evidence_usages.all %}
-      <li>
-        <a href="{% url 'irap:evidence_detail' usage.evidence.pk %}">
-          {{ usage.evidence.name }}
-        </a>
-        ({{ usage.evidence.type }})
-        <br>
-        <strong>Usage notes:</strong> {{ usage.notes|default:"-" }}
+  <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+    <div>
+      <h1 class="h3 mb-1">{{ control.control_id }} - {{ control.name }}</h1>
+      <div class="text-muted small">Control detail and supporting evidence</div>
+    </div>
+  </div>
 
-        {% if usage.evidence.links.all %}
-          <ul>
-            {% for link in usage.evidence.links.all %}
-              <li>{{ link.url_or_reference }}{% if link.description %} - {{ link.description }}{% endif %}</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>No evidence linked yet.</p>
-{% endif %}
+  <div class="card bg-dark border-secondary mb-3">
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="text-muted small mb-1">Control Set</div>
+          <div class="fw-semibold">
+            {{ control.control_set.name }}{% if control.control_set.version %} <span class="text-muted">({{ control.control_set.version }})</span>{% endif %}
+          </div>
 
-<hr>
+          <div class="text-muted small mt-3 mb-1">Control Description</div>
+          <div class="mb-0">{{ control.description }}</div>
+        </div>
 
-<h2>Link Existing Evidence</h2>
-<form method="post" action="{% url 'irap:link_evidence' control.pk %}">
-  {% csrf_token %}
-  {{ link_form.as_p }}
-  <button type="submit">Link Evidence</button>
-</form>
+        <div class="col-md-6">
+          <div class="text-muted small mb-1">Latest Assessment</div>
+          {% if latest_assessment %}
+            {% if latest_assessment.status == 'pass' %}
+              <span class="badge text-bg-success">{{ latest_assessment.get_status_display }}</span>
+            {% elif latest_assessment.status == 'partial' %}
+              <span class="badge text-bg-warning text-dark">{{ latest_assessment.get_status_display }}</span>
+            {% elif latest_assessment.status == 'fail' %}
+              <span class="badge text-bg-danger">{{ latest_assessment.get_status_display }}</span>
+            {% else %}
+              <span class="badge text-bg-secondary">{{ latest_assessment.get_status_display }}</span>
+            {% endif %}
 
-<hr>
+            <div class="mt-2">
+              <div><span class="text-muted">Date:</span> {{ latest_assessment.assessment_date }}</div>
+              {% if latest_assessment.notes %}
+                <div class="mt-2">
+                  <div class="text-muted small">Assessment notes</div>
+                  <div>{{ latest_assessment.notes }}</div>
+                </div>
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="alert alert-secondary mb-0">No assessments recorded yet.</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
 
-<h2>Create New Evidence and Link</h2>
-<form method="post" action="{% url 'irap:create_and_link_evidence' control.pk %}">
-  {% csrf_token %}
-  {{ create_form.as_p }}
-  <button type="submit">Create and Link</button>
-</form>
+  <div class="card bg-dark border-secondary mb-3">
+    <div class="card-body">
+      <h2 class="h5 text-muted mb-3">Task 1: Evidence Retrieval</h2>
+
+      {% if control.evidence_usages.all %}
+        <div class="row g-3">
+          {% for usage in control.evidence_usages.all %}
+            <div class="col-md-6">
+              <div class="card bg-transparent border-secondary h-100">
+                <div class="card-body">
+                  <h3 class="h6 mb-2">
+                    <a class="link-info text-decoration-none" href="{% url 'irap:evidence_detail' usage.evidence.pk %}">
+                      {{ usage.evidence.name }}
+                    </a>
+                  </h3>
+
+                  <div class="mb-2">
+                    <span class="badge text-bg-primary me-1">{{ usage.evidence.type }}</span>
+                    {% if usage.evidence.boundary_associations.all %}
+                      {% for assoc in usage.evidence.boundary_associations.all %}
+                        <span class="badge text-bg-secondary me-1 mb-1">{{ assoc.boundary.name }}</span>
+                      {% endfor %}
+                    {% else %}
+                      <span class="badge text-bg-secondary">No boundary scope assigned</span>
+                    {% endif %}
+                  </div>
+
+                  <div class="mt-3">
+                    <div class="text-muted small">Audit justification</div>
+                    <div>{{ usage.notes|default:"-" }}</div>
+                  </div>
+
+                  <div class="mt-3">
+                    <div class="text-muted small">References / links</div>
+                    {% if usage.evidence.links.all %}
+                      <ul class="mb-0 mt-2">
+                        {% for link in usage.evidence.links.all %}
+                          <li>
+                            {{ link.url_or_reference }}
+                            {% if link.description %} - {{ link.description }}{% endif %}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% else %}
+                      <div class="text-muted mt-2">No links recorded.</div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="alert alert-secondary mb-0">
+          No evidence linked yet. Use the forms below to link or create evidence.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="card bg-dark border-secondary mb-3">
+        <div class="card-body">
+          <h2 class="h5 mb-3">Link Existing Evidence</h2>
+          <form method="post" action="{% url 'irap:link_evidence' control.pk %}">
+            {% csrf_token %}
+            {{ link_form.as_p }}
+            <button class="btn btn-primary mt-2" type="submit">Link Evidence</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card bg-dark border-secondary mb-3">
+        <div class="card-body">
+          <h2 class="h5 mb-3">Create New Evidence and Link</h2>
+          <form method="post" action="{% url 'irap:create_and_link_evidence' control.pk %}">
+            {% csrf_token %}
+            {{ create_form.as_p }}
+            <button class="btn btn-primary mt-2" type="submit">Create and Link</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

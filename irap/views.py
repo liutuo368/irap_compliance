@@ -2,7 +2,12 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.db import IntegrityError
 from django.contrib import messages
 from .models import Control, Evidence, EvidenceUsage, EvidenceLink, BoundaryAssociation
-from .forms import LinkExistingEvidenceForm, CreateEvidenceAndLinkForm, AddBoundaryToEvidenceForm
+from .forms import (
+    AddBoundaryToEvidenceForm,
+    CreateEvidenceAndLinkForm,
+    EditEvidenceForm,
+    LinkExistingEvidenceForm,
+)
 from django.db.models import Count
 
 
@@ -108,6 +113,23 @@ def evidence_detail(request, pk):
         "boundary_form": boundary_form,
     }
     return render(request, "irap/evidence_detail.html", context)
+
+
+def evidence_edit(request, pk):
+    evidence = get_object_or_404(Evidence, pk=pk)
+
+    if request.method == "POST":
+        form = EditEvidenceForm(request.POST, instance=evidence)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Evidence updated successfully.")
+            return redirect("irap:evidence_detail", pk=evidence.pk)
+
+        messages.warning(request, "Please correct the errors below.")
+    else:
+        form = EditEvidenceForm(instance=evidence)
+
+    return render(request, "irap/evidence_edit.html", {"evidence": evidence, "form": form})
 
 
 def add_boundary_to_evidence(request, evidence_id):
