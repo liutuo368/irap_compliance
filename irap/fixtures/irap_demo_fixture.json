@@ -1,0 +1,748 @@
+[
+  {
+    "model": "irap.controlset",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "name": "ISM Demo Subset",
+      "version": "September 2025",
+      "description": "Presentation-ready subset adapted from the September 2025 SSP annex template."
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control_set": 1,
+      "control_id": "ISM-0576",
+      "name": "Cybersecurity incident management policy",
+      "description": "A cybersecurity incident management policy, and associated cybersecurity incident response plan, is developed, implemented and maintained.",
+      "version": "Mar-25"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control_set": 1,
+      "control_id": "ISM-1784",
+      "name": "Exercise incident response plan annually",
+      "description": "The cybersecurity incident management policy, including the associated cybersecurity incident response plan, is exercised at least annually.",
+      "version": "Mar-25"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control_set": 1,
+      "control_id": "ISM-0125",
+      "name": "Cybersecurity incident register",
+      "description": "A cybersecurity incident register is developed, implemented and maintained.",
+      "version": "Mar-25"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control_set": 1,
+      "control_id": "ISM-0120",
+      "name": "Monitoring data sources and tools",
+      "description": "Cybersecurity personnel have access to sufficient data sources and tools to ensure that systems can be monitored for key indicators of compromise.",
+      "version": "Mar-25"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control_set": 1,
+      "control_id": "ISM-1918",
+      "name": "CISO reporting to audit, risk and compliance committee",
+      "description": "The CISO regularly reports directly to their organisation\u2019s audit, risk and compliance committee (or equivalent) on cybersecurity matters.",
+      "version": "Mar-25"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control_set": 1,
+      "control_id": "ISM-0726",
+      "name": "Coordinate cybersecurity risk management",
+      "description": "The CISO coordinates security risk management activities between cybersecurity and business teams.",
+      "version": "Mar-25"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control_set": 1,
+      "control_id": "ISM-1785",
+      "name": "Supplier relationship management policy",
+      "description": "A supplier relationship management policy is developed, implemented and maintained.",
+      "version": "Dec-22"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control_set": 1,
+      "control_id": "ISM-1568",
+      "name": "Procure from suppliers committed to security",
+      "description": "Operating systems, applications, IT equipment, OT equipment and services are procured from suppliers that have demonstrated a commitment to the security of their products and services.",
+      "version": "Jun-25"
+    }
+  },
+  {
+    "model": "irap.control",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control_set": 1,
+      "control_id": "ISM-0731",
+      "name": "CISO oversees supply chain risk management",
+      "description": "The CISO oversees cyber supply chain risk management activities for their organisation.",
+      "version": "Oct-20"
+    }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 1,
+      "status": "pass",
+      "notes": "Incident management policy v2.1 approved and current.",
+      "assessment_date": "2026-03-15"
+    }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 2,
+      "status": "partial",
+      "notes": "Tabletop exercise completed; technical failover exercise scheduled next quarter.",
+      "assessment_date": "2026-03-15"
+    }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 3,
+      "status": "pass",
+      "notes": "Incident register maintained in the SOC case management workflow.",
+      "assessment_date": "2026-03-15"
+    }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 4,
+      "status": "partial",
+      "notes": "Core cloud and endpoint logs onboarded; one SaaS platform pending integration.",
+      "assessment_date": "2026-03-15"
+    }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 5,
+      "status": "pass",
+      "notes": "Quarterly cyber risk updates are presented to the committee.",
+      "assessment_date": "2026-03-15"
+    }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 6,
+      "status": "pass",
+      "notes": "Risk workshop cadence established between cyber and business owners.",
+      "assessment_date": "2026-03-15"
+    }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 7,
+      "status": "pass",
+      "notes": "Supplier relationship management policy approved and in force.",
+      "assessment_date": "2026-03-15"
+    }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 8,
+      "status": "partial",
+      "notes": "Legacy vendor review evidence still being collected for one service.",
+      "assessment_date": "2026-03-15"
+    }
+  },
+  {
+    "model": "irap.controlassessment",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 9,
+      "status": "pass",
+      "notes": "CISO review embedded into supplier risk governance process.",
+      "assessment_date": "2026-03-15"
+    }
+  },
+  {
+    "model": "irap.evidence",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "name": "Incident Management Policy v2.1",
+      "type": "policy",
+      "description": "Approved policy and incident response plan covering incident handling, escalation, and roles.",
+      "controls": []
+    }
+  },
+  {
+    "model": "irap.evidence",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "name": "Incident Response Exercise Report 2026-Q1",
+      "type": "attestation",
+      "description": "Tabletop exercise report with participants, scenarios, findings, and action items.",
+      "controls": []
+    }
+  },
+  {
+    "model": "irap.evidence",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "name": "Incident Register Extract 2026-Q1",
+      "type": "log",
+      "description": "Sanitized export of the incident register showing dates, descriptions, actions, and reporting records.",
+      "controls": []
+    }
+  },
+  {
+    "model": "irap.evidence",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "name": "SIEM Monitoring Coverage Matrix",
+      "type": "log",
+      "description": "Coverage matrix mapping monitored data sources, log types, and alerting coverage.",
+      "controls": []
+    }
+  },
+  {
+    "model": "irap.evidence",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "name": "Cyber Risk Committee Pack 2026-Q1",
+      "type": "attestation",
+      "description": "Quarterly CISO update pack presented to the audit, risk and compliance committee.",
+      "controls": []
+    }
+  },
+  {
+    "model": "irap.evidence",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "name": "Enterprise Security Risk Workshop Minutes",
+      "type": "attestation",
+      "description": "Minutes and action log from joint cyber-business risk management workshops.",
+      "controls": []
+    }
+  },
+  {
+    "model": "irap.evidence",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "name": "Supplier Relationship Management Policy v1.4",
+      "type": "policy",
+      "description": "Policy defining vendor onboarding, review, risk ownership, and oversight requirements.",
+      "controls": []
+    }
+  },
+  {
+    "model": "irap.evidence",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "name": "Supplier Due Diligence Checklist and Review Pack",
+      "type": "procedure",
+      "description": "Checklist and supporting records used to evaluate supplier security commitments before procurement.",
+      "controls": []
+    }
+  },
+  {
+    "model": "irap.evidencelink",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 1,
+      "url_or_reference": "Confluence /policies/incident-management-v2.1",
+      "description": "Controlled document link"
+    }
+  },
+  {
+    "model": "irap.evidencelink",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 2,
+      "url_or_reference": "SharePoint /exercises/ir-tabletop-q1-2026.pdf",
+      "description": "Exercise report"
+    }
+  },
+  {
+    "model": "irap.evidencelink",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 3,
+      "url_or_reference": "ServiceNow report INC-REGISTER-Q1-2026",
+      "description": "Register extract"
+    }
+  },
+  {
+    "model": "irap.evidencelink",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 4,
+      "url_or_reference": "Grafana /siem/coverage-matrix",
+      "description": "Monitoring coverage dashboard"
+    }
+  },
+  {
+    "model": "irap.evidencelink",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 5,
+      "url_or_reference": "BoardPack /committee/cyber-risk-q1-2026",
+      "description": "Committee pack"
+    }
+  },
+  {
+    "model": "irap.evidencelink",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 6,
+      "url_or_reference": "Confluence /risk/workshop-minutes",
+      "description": "Workshop minutes"
+    }
+  },
+  {
+    "model": "irap.evidencelink",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 7,
+      "url_or_reference": "Confluence /policies/supplier-relationship-v1.4",
+      "description": "Approved policy"
+    }
+  },
+  {
+    "model": "irap.evidencelink",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 8,
+      "url_or_reference": "SharePoint /vendor/due-diligence-review-pack.xlsx",
+      "description": "Vendor review pack"
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 1,
+      "evidence": 1,
+      "notes": "Primary policy evidence for documented incident management requirements."
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 2,
+      "evidence": 1,
+      "notes": "Policy includes exercise cadence and incident response plan scope."
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 2,
+      "evidence": 2,
+      "notes": "Demonstrates annual exercising of the incident response plan."
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 3,
+      "evidence": 3,
+      "notes": "Shows that the incident register is maintained with required fields."
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 4,
+      "evidence": 4,
+      "notes": "Evidence that analysts have monitored data sources and tools."
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 5,
+      "evidence": 5,
+      "notes": "Demonstrates regular reporting to the audit, risk and compliance committee."
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 5,
+      "evidence": 6,
+      "notes": "Workshop outputs are summarized into quarterly committee reporting."
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 6,
+      "evidence": 5,
+      "notes": "Committee pack includes cross-functional risk management updates."
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 6,
+      "evidence": 6,
+      "notes": "Direct evidence of coordinated cyber-business risk workshops."
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 7,
+      "evidence": 7,
+      "notes": "Primary supplier relationship management policy."
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 8,
+      "evidence": 7,
+      "notes": "Policy establishes security expectations for supplier selection."
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 8,
+      "evidence": 8,
+      "notes": "Checklist demonstrates supplier security commitment review before procurement."
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 9,
+      "evidence": 7,
+      "notes": "Policy assigns CISO oversight responsibilities for supplier risk."
+    }
+  },
+  {
+    "model": "irap.evidenceusage",
+    "pk": 14,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "control": 9,
+      "evidence": 8,
+      "notes": "Review pack shows ongoing oversight of supplier security risk."
+    }
+  },
+  {
+    "model": "irap.boundary",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "name": "Corporate Governance",
+      "description": "Board, committee, and executive governance activities."
+    }
+  },
+  {
+    "model": "irap.boundary",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "name": "Security Operations",
+      "description": "SOC processes, monitoring, and incident response workflows."
+    }
+  },
+  {
+    "model": "irap.boundary",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "name": "AWS Production Platform",
+      "description": "Cloud-hosted production services and supporting security controls."
+    }
+  },
+  {
+    "model": "irap.boundary",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "name": "Vendor Management",
+      "description": "Third-party supplier onboarding, review, and oversight."
+    }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 1,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 1,
+      "boundary": 2,
+      "notes": "Policy is used by security operations staff."
+    }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 1,
+      "boundary": 3,
+      "notes": "Policy applies to cloud-hosted production services."
+    }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 2,
+      "boundary": 2,
+      "notes": "Exercise conducted by incident response and SOC personnel."
+    }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 2,
+      "boundary": 3,
+      "notes": "Scenario covered AWS production workloads."
+    }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 3,
+      "boundary": 2,
+      "notes": "Incident register maintained by SOC."
+    }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 4,
+      "boundary": 2,
+      "notes": "Monitoring coverage maintained by security operations."
+    }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 4,
+      "boundary": 3,
+      "notes": "Coverage matrix includes AWS telemetry sources."
+    }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 5,
+      "boundary": 1,
+      "notes": "Committee reporting is within governance boundary."
+    }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 6,
+      "boundary": 1,
+      "notes": "Risk workshops support governance and business ownership."
+    }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 7,
+      "boundary": 4,
+      "notes": "Policy governs supplier lifecycle and oversight."
+    }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 7,
+      "boundary": 1,
+      "notes": "Policy approved through governance process."
+    }
+  },
+  {
+    "model": "irap.boundaryassociation",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-03-15T09:00:00Z",
+      "updated_at": "2026-03-15T09:00:00Z",
+      "evidence": 8,
+      "boundary": 4,
+      "notes": "Checklist used during supplier onboarding and review."
+    }
+  }
+]

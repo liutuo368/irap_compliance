@@ -1,0 +1,53 @@
+{% load static %}
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}IRAP Compliance PoC{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'irap/styles.css' %}" />
+    {% block head_extra %}{% endblock %}
+  </head>
+  <body class="bg-dark text-light">
+    <header class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'irap:control_list' %}">IRAP Compliance</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#irapNav" aria-controls="irapNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="irapNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'irap:control_list' %}">Controls</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'irap:evidence_list' %}">Evidence</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'irap:traceability_report' %}">Traceability</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <main class="container py-4">
+      {% if messages %}
+        <div role="status" aria-live="polite">
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% block content %}{% endblock %}
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
