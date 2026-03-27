@@ -1,68 +1,57 @@
 from django import forms
-from .models import Evidence, Boundary
+from .models import Evidence, EvidenceUsage, Boundary, BoundaryAssociation, EvidenceLink
 
 class LinkExistingEvidenceForm(forms.Form):
     evidence = forms.ModelChoiceField(
         queryset=Evidence.objects.all().order_by("name"),
-        empty_label="Select existing evidence",
-        widget=forms.Select(attrs={"class": "form-select"}),
+        empty_label="Select existing evidence"
     )
     notes = forms.CharField(
         required=False,
-        widget=forms.Textarea(attrs={"rows": 3, "class": "form-control"}),
+        widget=forms.Textarea(attrs={"rows": 3})
     )
 
 
 class CreateEvidenceAndLinkForm(forms.ModelForm):
     usage_notes = forms.CharField(
         required=False,
-        widget=forms.Textarea(attrs={"rows": 3, "class": "form-control"}),
+        widget=forms.Textarea(attrs={"rows": 3}),
         label="Why this evidence supports the control"
     )
     url_or_reference = forms.CharField(
         required=False,
-        widget=forms.Textarea(attrs={"rows": 2, "class": "form-control"}),
+        widget=forms.Textarea(attrs={"rows": 2}),
         label="Evidence link / reference"
     )
     link_description = forms.CharField(
         required=False,
-        widget=forms.Textarea(attrs={"rows": 2, "class": "form-control"}),
+        widget=forms.Textarea(attrs={"rows": 2}),
         label="Link description"
     )
 
     class Meta:
         model = Evidence
         fields = ["name", "type", "description"]
-        widgets = {
-            "name": forms.TextInput(attrs={"class": "form-control"}),
-            "type": forms.Select(attrs={"class": "form-select"}),
-            "description": forms.Textarea(attrs={"rows": 4, "class": "form-control"}),
-        }
-
-
-class EditEvidenceForm(forms.ModelForm):
-    """
-    Edit only the evidence artifact metadata.
-    Relationship-level justifications (EvidenceUsage.notes, BoundaryAssociation.notes)
-    are edited through the control/evidence relationship UIs.
-    """
-
-    class Meta:
-        model = Evidence
-        fields = ["name", "type", "description"]
-        widgets = {
-            "name": forms.TextInput(attrs={"class": "form-control"}),
-            "type": forms.Select(attrs={"class": "form-select"}),
-            "description": forms.Textarea(attrs={"rows": 4, "class": "form-control"}),
-        }
 
 
 class AddBoundaryToEvidenceForm(forms.Form):
     boundary = forms.ModelChoiceField(
-        queryset=Boundary.objects.all().order_by("name"),
-        widget=forms.Select(attrs={"class": "form-select"}),
+        queryset=Boundary.objects.all().order_by("name")
     )
     notes = forms.CharField(
         required=False,
-        widget=forms.Textarea(attrs={"rows": 2, "class": "form-control"}),
+        widget=forms.Textarea(attrs={"rows": 2})
     )
+
+
+class EvidenceEditForm(forms.ModelForm):
+    change_note = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={"rows": 2}),
+        label="Change note",
+        help_text="Describe what changed in this update."
+    )
+
+    class Meta:
+        model = Evidence
+        fields = ["name", "type", "description"]

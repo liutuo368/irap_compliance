@@ -3,10 +3,10 @@ from django.db import IntegrityError
 from django.contrib import messages
 from .models import Control, Evidence, EvidenceUsage, EvidenceLink, BoundaryAssociation
 from .forms import (
-    AddBoundaryToEvidenceForm,
-    CreateEvidenceAndLinkForm,
-    EditEvidenceForm,
     LinkExistingEvidenceForm,
+    CreateEvidenceAndLinkForm,
+    AddBoundaryToEvidenceForm,
+    EvidenceEditForm,
 )
 from django.db.models import Count
 
@@ -99,6 +99,7 @@ def evidence_detail(request, pk):
             "links",
             "evidence_usages__control__control_set",
             "boundary_associations__boundary",
+            "history_entries",
         ),
         pk=pk,
     )
@@ -106,11 +107,18 @@ def evidence_detail(request, pk):
     boundary_form = AddBoundaryToEvidenceForm()
 
     reuse_count = evidence.evidence_usages.count()
+    history_entries = evidence.history_entries.all()
+    selected_history = None
+    history_id = request.GET.get("history")
+    if history_id:
+        selected_history = history_entries.filter(pk=history_id).first()
 
     context = {
         "evidence": evidence,
         "reuse_count": reuse_count,
         "boundary_form": boundary_form,
+        "history_entries": history_entries,
+        "selected_history": selected_history,
     }
     return render(request, "irap/evidence_detail.html", context)
 
@@ -119,17 +127,17 @@ def evidence_edit(request, pk):
     evidence = get_object_or_404(Evidence, pk=pk)
 
     if request.method == "POST":
-        form = EditEvidenceForm(request.POST, instance=evidence)
+        form = EvidenceEditForm(request.POST, instance=evidence)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Evidence updated successfully.")
+            evidence_obj = form.save(commit=False)
+            evidence_obj._change_note = form.cleaned_data.get("change_note", "")
+            evidence_obj.save()
+            messages.success(request, "Evidence updated with version history.")
             return redirect("irap:evidence_detail", pk=evidence.pk)
-
-        messages.warning(request, "Please correct the errors below.")
     else:
-        form = EditEvidenceForm(instance=evidence)
+        form = EvidenceEditForm(instance=evidence)
 
-    return render(request, "irap/evidence_edit.html", {"evidence": evidence, "form": form})
+    return render(request, "irap/evidence_edit.html", {"form": form, "evidence": evidence})
 
 
 def add_boundary_to_evidence(request, evidence_id):

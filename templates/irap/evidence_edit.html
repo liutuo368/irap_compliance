@@ -13,6 +13,8 @@
 
   <div class="card bg-dark border-secondary mb-3">
     <div class="card-body">
+    <p class="mb-1"><strong>Current version:</strong> {{ evidence.version }}</p>
+    <p class="mb-3"><strong>Last updated:</strong> {{ evidence.updated_at|date:"Y-m-d H:i" }}</p>
     <form method="post" action="">
       {% csrf_token %}
 

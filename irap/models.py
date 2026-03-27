@@ -79,6 +79,7 @@ class Evidence(TimeStampedModel):
     name = models.CharField(max_length=255)
     type = models.CharField(max_length=64, choices=EvidenceType.choices, default=EvidenceType.OTHER)
     description = models.TextField(blank=True)
+    version = models.CharField(max_length=16, default="v1.0")
 
     # M2M to Control via EvidenceUsage
     controls = models.ManyToManyField(Control, through="EvidenceUsage", related_name="evidence_items")
@@ -92,6 +93,76 @@ class Evidence(TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    @staticmethod
+    def _increment_version(version_value):
+        """
+        Simple versioning for prototype: v1.0 -> v1.1 -> v1.2.
+        """
+        if not version_value or not version_value.startswith("v"):
+            return "v1.0"
+        try:
+            major, minor = version_value[1:].split(".", 1)
+            return f"v{int(major)}.{int(minor) + 1}"
+        except (ValueError, TypeError):
+            return "v1.0"
+
+    def save(self, *args, **kwargs):
+        is_update = self.pk is not None
+        previous = None
+        if is_update:
+            previous = Evidence.objects.filter(pk=self.pk).first()
+
+        if not self.version:
+            self.version = "v1.0"
+
+        should_track_change = (
+            previous is not None
+            and (
+                previous.name != self.name
+                or previous.type != self.type
+                or previous.description != self.description
+            )
+        )
+
+        if should_track_change:
+            old_version = previous.version or "v1.0"
+            change_note = getattr(self, "_change_note", "") or "Updated evidence details"
+
+            EvidenceHistory.objects.create(
+                evidence=previous,
+                version=old_version,
+                description=previous.description,
+                snapshot={
+                    "name": previous.name,
+                    "type": previous.type,
+                    "description": previous.description,
+                    "version": old_version,
+                },
+                change_note=change_note,
+            )
+            self.version = self._increment_version(old_version)
+
+        super().save(*args, **kwargs)
+
+
+class EvidenceHistory(models.Model):
+    evidence = models.ForeignKey(Evidence, on_delete=models.CASCADE, related_name="history_entries")
+    version = models.CharField(max_length=16)
+    description = models.TextField(blank=True)
+    snapshot = models.JSONField(default=dict, blank=True)
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
+    change_note = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["-created_at", "-id"]
+        indexes = [
+            models.Index(fields=["evidence", "-created_at"]),
+            models.Index(fields=["version"]),
+        ]
+
+    def __str__(self):
+        return f"EvidenceHistory({self.evidence_id}, {self.version})"
 
 
 class EvidenceLink(TimeStampedModel):
