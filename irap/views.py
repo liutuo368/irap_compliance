@@ -7,6 +7,7 @@ from .forms import (
     CreateEvidenceAndLinkForm,
     AddBoundaryToEvidenceForm,
     EvidenceEditForm,
+    ControlCreateForm,
 )
 from django.db.models import Count
 
@@ -14,6 +15,19 @@ from django.db.models import Count
 def control_list(request):
     controls = Control.objects.select_related("control_set").all().order_by("control_id")
     return render(request, "irap/control_list.html", {"controls": controls})
+
+
+def control_create(request):
+    if request.method == "POST":
+        form = ControlCreateForm(request.POST)
+        if form.is_valid():
+            control = form.save()
+            messages.success(request, "Control created successfully.")
+            return redirect("irap:control_detail", pk=control.pk)
+    else:
+        form = ControlCreateForm()
+
+    return render(request, "irap/control_create.html", {"form": form})
 
 
 def control_detail(request, pk):
@@ -125,6 +139,7 @@ def evidence_detail(request, pk):
 
 def evidence_edit(request, pk):
     evidence = get_object_or_404(Evidence, pk=pk)
+    existing_link = evidence.links.order_by("id").first()
 
     if request.method == "POST":
         form = EvidenceEditForm(request.POST, instance=evidence)
@@ -132,10 +147,34 @@ def evidence_edit(request, pk):
             evidence_obj = form.save(commit=False)
             evidence_obj._change_note = form.cleaned_data.get("change_note", "")
             evidence_obj.save()
+
+            url_or_reference = form.cleaned_data.get("url_or_reference", "").strip()
+            link_description = form.cleaned_data.get("link_description", "").strip()
+            if url_or_reference:
+                if existing_link:
+                    existing_link.url_or_reference = url_or_reference
+                    existing_link.description = link_description
+                    existing_link.save()
+                else:
+                    EvidenceLink.objects.create(
+                        evidence=evidence_obj,
+                        url_or_reference=url_or_reference,
+                        description=link_description,
+                    )
+            elif existing_link and link_description:
+                existing_link.description = link_description
+                existing_link.save()
+
             messages.success(request, "Evidence updated with version history.")
             return redirect("irap:evidence_detail", pk=evidence.pk)
     else:
-        form = EvidenceEditForm(instance=evidence)
+        initial = {}
+        if existing_link:
+            initial = {
+                "url_or_reference": existing_link.url_or_reference,
+                "link_description": existing_link.description,
+            }
+        form = EvidenceEditForm(instance=evidence, initial=initial)
 
     return render(request, "irap/evidence_edit.html", {"form": form, "evidence": evidence})
 

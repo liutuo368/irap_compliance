@@ -5,6 +5,7 @@ app_name = "irap"
 
 urlpatterns = [
     path("controls/", views.control_list, name="control_list"),
+    path("controls/create/", views.control_create, name="control_create"),
     path("controls/<int:pk>/", views.control_detail, name="control_detail"),
     path("controls/<int:control_id>/link-evidence/", views.link_evidence_to_control, name="link_evidence"),
     path("controls/<int:control_id>/create-and-link-evidence/", views.create_and_link_evidence, name="create_and_link_evidence"),
