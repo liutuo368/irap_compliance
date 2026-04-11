@@ -121,6 +121,10 @@
       {% endif %}
 
       <h3 class="h6 mt-3">Add Boundary Scope</h3>
+      <p class="small text-muted mb-2">
+        No boundary in the list?
+        <a href="{% url 'irap:boundary_create' %}?evidence={{ evidence.pk }}">Create a boundary</a>
+      </p>
       <form method="post" action="{% url 'irap:add_boundary_to_evidence' evidence.pk %}">
         {% csrf_token %}
         {{ boundary_form.as_p }}

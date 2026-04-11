@@ -10,6 +10,8 @@ urlpatterns = [
     path("controls/<int:control_id>/link-evidence/", views.link_evidence_to_control, name="link_evidence"),
     path("controls/<int:control_id>/create-and-link-evidence/", views.create_and_link_evidence, name="create_and_link_evidence"),
 
+    path("boundaries/create/", views.boundary_create, name="boundary_create"),
+
     path("evidence/", views.evidence_list, name="evidence_list"),
     path("evidence/<int:pk>/", views.evidence_detail, name="evidence_detail"),
     path("evidence/<int:pk>/edit/", views.evidence_edit, name="evidence_edit"),

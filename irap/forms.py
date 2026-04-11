@@ -76,3 +76,9 @@ class ControlCreateForm(forms.ModelForm):
         queryset=ControlSet.objects.all().order_by("name", "version"),
         empty_label=None
     )
+
+
+class BoundaryCreateForm(forms.ModelForm):
+    class Meta:
+        model = Boundary
+        fields = ["name", "description"]

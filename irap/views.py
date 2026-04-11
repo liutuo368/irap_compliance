@@ -8,6 +8,7 @@ from .forms import (
     AddBoundaryToEvidenceForm,
     EvidenceEditForm,
     ControlCreateForm,
+    BoundaryCreateForm,
 )
 from django.db.models import Count
 
@@ -28,6 +29,28 @@ def control_create(request):
         form = ControlCreateForm()
 
     return render(request, "irap/control_create.html", {"form": form})
+
+
+def boundary_create(request):
+    evidence_pk = request.GET.get("evidence") or request.POST.get("evidence")
+
+    if request.method == "POST":
+        form = BoundaryCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Boundary created successfully.")
+            if evidence_pk and str(evidence_pk).isdigit():
+                if Evidence.objects.filter(pk=int(evidence_pk)).exists():
+                    return redirect("irap:evidence_detail", pk=int(evidence_pk))
+            return redirect("irap:evidence_list")
+    else:
+        form = BoundaryCreateForm()
+
+    return render(
+        request,
+        "irap/boundary_create.html",
+        {"form": form, "evidence_pk": evidence_pk},
+    )
 
 
 def control_detail(request, pk):
